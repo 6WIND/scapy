@@ -22,8 +22,16 @@
 ##                                                                         ##
 #############################################################################
 
-from scapy import *
-import __builtin__
+import struct
+import time
+
+from scapy.packet import Packet, bind_layers, Padding
+from scapy.fields import LEIntField, IPField, LEIntEnumField, StrFixedLenField, \
+        FlagsField
+from scapy.layers.inet import TCP
+from scapy.layers.skinny import skinny_messages
+from scapy.volatile import RandShort
+from scapy.main import interact
 
 #####################################################################
 # Helpers and constants

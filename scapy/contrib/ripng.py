@@ -5,10 +5,10 @@
 # scapy.contrib.description = RIPng
 # scapy.contrib.status = loads
 
-from scapy.packet import *
-from scapy.fields import *
+from scapy.packet import Packet, bind_layers
+from scapy.fields import ByteEnumField, ByteField, ShortField, ConditionalField
 from scapy.layers.inet import UDP
-from scapy.layers.inet6 import *
+from scapy.layers.inet6 import IP6Field
 
 class RIPng(Packet):
     name = "RIPng header"

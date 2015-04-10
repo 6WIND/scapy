@@ -23,8 +23,22 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 """
 
+import struct
+import socket
+from socket import inet_pton, inet_ntop
 
-from scapy.all import *
+from scapy.packet import Packet, bind_layers, Raw, Padding
+from scapy.fields import (
+    XShortField, IPField, XIntField, ShortField, X3BytesField, ByteField,
+    ShortEnumField, FlagsField, ConditionalField, PacketListField,
+    ByteEnumField, XLongField, IntField, FieldListField, FieldLenField,
+    StrLenField, BitField, IntEnumField, StrField,
+)
+from scapy.layers.inet import IP
+from scapy.layers.inet6 import IP6Field, IPv6, in6_chksum
+from scapy.error import warning
+from scapy.main import interact
+from scapy.utils import checksum
 
 EXT_VERSION = "v0.9.2"
 

@@ -4,8 +4,11 @@
 # scapy.contrib.description = VLAN Query Protocol
 # scapy.contrib.status = loads
 
-from scapy.packet import *
-from scapy.fields import *
+import struct
+
+from scapy.packet import Packet, bind_layers
+from scapy.fields import ByteField, ByteEnumField, ConditionalField, \
+        FieldLenField, IntEnumField, IPField, MACField, StrLenField, IntField
 from scapy.layers.inet import UDP
 
 class VQP(Packet):

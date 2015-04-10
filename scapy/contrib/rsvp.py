@@ -5,9 +5,11 @@
 # scapy.contrib.description = RSVP
 # scapy.contrib.status = loads
 
-from scapy.packet import *
-from scapy.fields import *
+from scapy.packet import Packet, bind_layers
+from scapy.fields import BitField, ByteEnumField, XByteField, ShortField, \
+        XShortField, ByteField, StrLenField, IPField
 from scapy.layers.inet import IP
+from scapy.utils import checksum
 
 rsvpmsgtypes = { 0x01 : "Path",
                  0x02 : "Reservation request",

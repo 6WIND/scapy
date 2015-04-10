@@ -42,7 +42,13 @@
         http://www.cisco.com/en/US/tech/tk389/tk689/technologies_tech_note09186a0080094c52.shtml
 """
 
-from scapy.all import *
+from scapy.packet import Packet, bind_layers, Padding
+from scapy.fields import (
+    ByteField, ByteEnumField, ConditionalField, StrLenField, ShortField, IPField,
+    XIntField, PacketListField, StrFixedLenField, FieldLenField, SignedIntField,
+)
+from scapy.layers.l2 import SNAP
+from scapy.main import interact
 
 _VTP_VLAN_TYPE = {
             1 : 'Ethernet',

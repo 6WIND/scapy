@@ -5,18 +5,22 @@
 # scapy.contrib.description = IKEv2
 # scapy.contrib.status = loads
 
-from scapy.all import *
 import logging
-
+import struct
 
 ## Modified from the original ISAKMP code by Yaron Sheffer <yaronf.ietf@gmail.com>, June 2010.
 
-import struct
-from scapy.packet import *
-from scapy.fields import *
-from scapy.ansmachine import *
+from scapy.packet import Packet, Raw, bind_layers, split_layers
+from scapy.fields import (
+    ByteEnumField, FieldLenField, FlagsField, ShortField, IntField, ByteField,
+    ConditionalField, StrLenField, StrLenField, PacketLenField, ShortEnumField,
+    XByteField, StrFixedLenField,
+)
 from scapy.layers.inet import IP,UDP
+from scapy.layers.isakmp import ISAKMP
 from scapy.sendrecv import sr
+from scapy.volatile import RandString
+from scapy.main import interact
 
 # see http://www.iana.org/assignments/ikev2-parameters for details
 IKEv2AttributeTypes= { "Encryption":    (1, { "DES-IV64"  : 1,

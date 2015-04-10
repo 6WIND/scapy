@@ -5,11 +5,13 @@
 
 # This layer is based on information from http://www.nethelp.no/net/cisco-hdlc.txt
 
-from scapy.packet import *
-from scapy.fields import *
-from scapy.layers.l2 import *
-from scapy.layers.inet import *
-from scapy.layers.inet6 import *
+from scapy.packet import Packet, bind_layers
+from scapy.fields import ByteEnumField, ByteField, XShortField, IntEnumField, \
+        ConditionalField, IPField, IntField
+from scapy.layers.inet import IP
+from scapy.layers.inet6 import IPv6
+from scapy.layers.l2 import Dot3, STP
+from scapy.config import conf
 
 class CHDLC(Packet):
     name = "Cisco HDLC"

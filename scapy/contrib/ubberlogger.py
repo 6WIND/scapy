@@ -4,6 +4,9 @@
 # scapy.contrib.description = Ubberlogger dissectors
 # scapy.contrib.status = untested
 
+from scapy.packet import Packet, bind_layers
+from scapy.fields import ByteField, ByteEnumField, IntField, ShortField
+
 # Syscalls known by Uberlogger
 uberlogger_sys_calls = {0:"READ_ID",
              1:"OPEN_ID",

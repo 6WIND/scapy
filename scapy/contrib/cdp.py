@@ -22,6 +22,10 @@
 ##                                                                         ##
 #############################################################################
 
+from scapy.packet import Packet, Raw, Padding, bind_layers
+from scapy.fields import *
+from scapy.layers.inet6 import IP6Field
+from scapy.layers.l2 import SNAP
 
 #####################################################################
 # Helpers and constants

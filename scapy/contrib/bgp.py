@@ -5,6 +5,19 @@
 # scapy.contrib.description = BGP
 # scapy.contrib.status = loads
 
+import struct
+import re
+from socket import inet_aton, inet_ntoa
+
+from scapy.packet import Packet, Raw, bind_layers
+from scapy.fields import (
+    Field, XBitField, ShortField, ByteEnumField, ByteField, StrLenField,
+    IPField, PacketListField, FieldListField, LongField, FieldLenField,
+    FlagsField,
+)
+from scapy.layers.inet import TCP
+from scapy.main import interact
+
 class BGPIPField(Field):
 	"""Represents how bgp dose an ip prefix in (length, prefix)"""
 	def mask2iplen(self,mask):

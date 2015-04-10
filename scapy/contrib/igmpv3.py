@@ -23,9 +23,18 @@
 #   http://www.faqs.org/rfcs/rfc4286.html
 #
 
-#import sys, socket, struct, time
-from scapy.all import *
-print "IGMPv3  is still under development - Nov 2010"
+from string import atol
+
+from scapy.error import warning
+from scapy.packet import Packet, bind_layers
+from scapy.fields import ByteEnumField, ByteField, FieldLenField, IPField, FieldListField, XShortField
+from scapy.utils import checksum
+from scapy.layers.inet import IP, IPOption_Router_Alert
+from scapy.layers.l2 import Ether
+
+from scapy.contrib.igmp import isValidMCAddr
+
+warning("IGMPv3  is still under development - Nov 2010")
 
 
 class IGMPv3gr(Packet):

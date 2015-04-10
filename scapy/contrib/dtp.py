@@ -16,9 +16,15 @@
         http://trac.secdev.org/scapy/ticket/18
 """
 
-from scapy.packet import *
-from scapy.fields import *
-from scapy.layers.l2 import SNAP
+import struct
+
+from scapy.packet import Packet, Padding, Raw, bind_layers
+from scapy.fields import XShortField, FieldLenField, PacketListField, \
+        ShortField, StrLenField, MACField, PacketField, ByteField
+from scapy.layers.l2 import SNAP, Dot3, LLC
+from scapy.sendrecv import sendp
+from scapy.config import conf
+from scapy.volatile import RandMAC
 
 class DtpGenericTlv(Packet):
     name = "DTP Generic TLV"

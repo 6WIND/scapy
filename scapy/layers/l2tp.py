@@ -11,8 +11,8 @@ L2TP (Layer 2 Tunneling Protocol) for VPNs.
 
 import struct
 
-from scapy.packet import *
-from scapy.fields import *
+from scapy.packet import Packet, bind_layers
+from scapy.fields import ShortEnumField, ShortField
 from scapy.layers.inet import UDP
 from scapy.layers.ppp import PPP
 

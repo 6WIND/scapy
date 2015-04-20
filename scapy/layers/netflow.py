@@ -8,8 +8,8 @@ Cisco NetFlow protocol v1
 """
 
 
-from scapy.fields import *
-from scapy.packet import *
+from scapy.fields import ShortField, IntField, IPField, ByteField
+from scapy.packet import Packet, bind_layers
 
 # Cisco Netflow Protocol version 1
 class NetflowHeader(Packet):

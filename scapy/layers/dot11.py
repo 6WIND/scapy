@@ -8,12 +8,21 @@ Wireless LAN according to IEEE 802.11.
 """
 
 import re,struct
+from binascii import crc32
 
-from scapy.packet import *
-from scapy.fields import *
+from scapy.packet import Packet, bind_layers, NoPayload
+from scapy.fields import MACField, LEShortField, LEShortField, LEIntField, \
+    StrFixedLenField, LESignedIntField, ByteField, FieldLenField, StrLenField, \
+    FlagsField, BitField, BitEnumField, ShortField, LELongField, ByteEnumField, \
+    LEShortEnumField, StrField, IntField
 from scapy.plist import PacketList
-from scapy.layers.l2 import *
-
+from scapy.ansmachine import AnsweringMachine
+from scapy.data import ETHER_ANY
+from scapy.layers.l2 import Ether, LLC
+from scapy.error import warning, log_loading
+from scapy.layers.inet import TCP, IP
+from scapy.sendrecv import sendp, sniff
+from scapy.config import conf
 
 try:
     from Crypto.Cipher import ARC4

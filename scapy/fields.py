@@ -8,11 +8,13 @@ Fields: basic data structures that make up parts of packets.
 """
 
 import struct,copy,socket
-from config import conf
-from volatile import *
-from data import *
-from utils import *
-from base_classes import BasePacket,Gen,Net
+from socket import inet_aton, inet_ntoa
+
+from scapy.config import conf
+from scapy.volatile import RandNum, VolatileValue, RandSInt, RandSInt, RandIP, RandTermString, RandBin, RandByte, RandShort, RandInt, RandLong, RandMAC
+from scapy.utils import lhex, mac2str, str2mac
+from scapy.error import warning
+from scapy.base_classes import BasePacket,Gen,Net
 
 
 ############
@@ -896,3 +898,4 @@ class FixedPointField(BitField):
         return int_part+frac_part
     def i2repr(self, pkt, val):
         return self.i2h(pkt, val)
+

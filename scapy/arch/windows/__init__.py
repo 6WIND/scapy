@@ -16,12 +16,12 @@ from scapy.base_classes import Gen, Net, SetGen
 import scapy.plist as plist
 from scapy.sendrecv import debug, srp1
 from scapy.layers.l2 import Ether, ARP
-from scapy.data import MTU, ETHER_BROADCAST, ETH_P_ARP
+from scapy.data import MTU, ETHER_BROADCAST, ETH_P_ARP, ETH_P_ALL
 
 conf.use_pcap = 1
 conf.use_dnet = 1
 from scapy.arch import pcapdnet
-from scapy.arch.pcapdnet import *
+from scapy.arch.pcapdnet import pcap, PcapTimeoutElapsed
 
 LOOPBACK_NAME="lo0"
 WINDOWS = True

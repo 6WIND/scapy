@@ -8,16 +8,16 @@ Linux specific functions.
 """
 
 from __future__ import with_statement
-import sys,os,struct,socket,time
+import os,struct,socket,time
 from select import select
 from fcntl import ioctl
 import scapy.utils
 import scapy.utils6
 from scapy.config import conf
-from scapy.data import *
+from scapy.data import MTU, ETH_P_ALL
 from scapy.supersocket import SuperSocket
 import scapy.arch
-from scapy.error import warning
+from scapy.error import warning, log_loading, log_interactive, Scapy_Exception
 
 
 

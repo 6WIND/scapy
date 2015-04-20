@@ -25,23 +25,39 @@ IPv6 (Internet Protocol v6).
 
 
 import socket
+import struct
+import re
+import time
+import random
+
 if not socket.has_ipv6:
     raise socket.error("can't use AF_INET6, IPv6 is disabled")
 if not hasattr(socket, "IPPROTO_IPV6"):
     # Workaround for http://bugs.python.org/issue6926
     socket.IPPROTO_IPV6 = 41
 
+from scapy.base_classes import Gen
 from scapy.config import conf
-from scapy.layers.l2 import *
-from scapy.layers.inet import *
-from scapy.fields import *
-from scapy.packet import *
-from scapy.volatile import *
-from scapy.sendrecv import sr,sr1,srp1
+from scapy.layers.l2 import Ether, CookedLinux
+from scapy.layers.inet import IP, TCP, UDP, TCPerror, UDPerror, IPTools, \
+    TracerouteResult
+from scapy.fields import ByteEnumField, ByteField, XShortField, FlagsField, \
+    ShortField, Field, FieldLenField, StrLenField, ShortEnumField, IntField, \
+    PacketListField, BitField, XIntField, StrFixedLenField, BitEnumField, \
+    MACField, PacketLenField, XIntField, StrField, XBitField, XBitField, \
+    LongField
+from scapy.packet import bind_layers, Packet, Raw
+from scapy.volatile import RandShort, RandInt, RandIP6
+from scapy.sendrecv import sr, srp1
 from scapy.as_resolvers import AS_resolver_riswhois
 from scapy.supersocket import SuperSocket,L3RawSocket
-from scapy.arch import *
-from scapy.utils6 import *
+from scapy.arch import LOOPBACK_NAME, get_if_hwaddr
+from scapy.utils import inet_ntop, inet_pton, strxor, checksum
+from scapy.utils6 import in6_ismaddr, in6_cidr2mask, in6_getnsmac, in6_getnsma, \
+    in6_and, in6_ptop, in6_isaddrTeredo, in6_isaddr6to4, in6_6to4ExtractAddr, \
+    in6_isaddrllallnodes, in6_isaddrllallservers, teredoAddrExtractInfo
+from scapy.error import warning
+from scapy.data import MTU, ETHER_ANY, ETH_P_IPV6
 
 
 #############################################################################

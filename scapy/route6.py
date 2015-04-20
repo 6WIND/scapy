@@ -17,10 +17,23 @@ Routing and network interface handling for IPv6.
 #############################################################################
 
 import socket
-from config import conf
-from utils6 import *
-from arch import *
-
+from scapy.config import conf
+from scapy.utils import inet_pton, inet_ntop
+from scapy.utils6 import (
+    construct_source_candidate_set,
+    get_source_addr_from_candidate_set,
+    in6_and,
+    in6_cidr2mask,
+    in6_isaddr6to4,
+    in6_isgladdr,
+    in6_isincluded,
+    in6_islladdr,
+    in6_ismaddr,
+    in6_ismlladdr,
+    in6_ptop,
+)
+from scapy.arch import read_routes6, LOOPBACK_NAME, in6_getifaddr
+from scapy.error import warning, log_loading
 
 class Route6:
 

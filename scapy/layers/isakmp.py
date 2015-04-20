@@ -8,11 +8,15 @@ ISAKMP (Internet Security Association and Key Management Protocol).
 """
 
 import struct
-from scapy.packet import *
-from scapy.fields import *
-from scapy.ansmachine import *
+
+from scapy.packet import Packet, Raw, bind_layers
+from scapy.fields import ByteEnumField, ByteField, FieldLenField, FlagsField, \
+    IntEnumField, PacketLenField, ShortEnumField, ShortField, StrFixedLenField, \
+    StrLenField, XByteField, IntField
 from scapy.layers.inet import IP,UDP
+from scapy.volatile import RandString
 from scapy.sendrecv import sr
+from scapy.error import warning
 
 
 # see http://www.iana.org/assignments/ipsec-registry for details

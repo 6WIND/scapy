@@ -22,10 +22,15 @@
 ##                                                                         ##
 #############################################################################
 
+import struct
+
 from scapy.packet import Packet, Raw, Padding, bind_layers
-from scapy.fields import *
+from scapy.fields import ByteEnumField, ByteField, FieldLenField, FlagsField, \
+        IPField, PacketListField, ShortField, StrLenField, XShortEnumField, \
+        XShortField
 from scapy.layers.inet6 import IP6Field
 from scapy.layers.l2 import SNAP
+from scapy.utils import checksum
 
 #####################################################################
 # Helpers and constants
@@ -100,7 +105,6 @@ class CDPMsgGeneric(Packet):
     fields_desc = [ XShortEnumField("type", None, _cdp_tlv_types),
                     FieldLenField("len", None, "val", "!H"),
                     StrLenField("val", "", length_from=lambda x:x.len - 4) ]
-
 
     def guess_payload_class(self, p):
         return Padding # _CDPGuessPayloadClass

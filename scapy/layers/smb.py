@@ -7,10 +7,11 @@
 SMB (Server Message Block), also known as CIFS.
 """
 
-from scapy.packet import *
-from scapy.fields import *
+from scapy.packet import Packet, bind_layers
+from scapy.fields import StrFixedLenField, BitField, ByteEnumField, ByteField, \
+    FlagsField, LEFieldLenField, LEIntField, LELongField, LEShortField, \
+    ShortField, StrLenField, StrNullField
 from scapy.layers.netbios import NBTSession
-
 
 # SMB NetLogon Response Header
 class SMBNetlogon_Protocol_Response_Header(Packet):

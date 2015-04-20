@@ -7,7 +7,7 @@
 General utility functions.
 """
 
-import os,sys,socket,types
+import os,sys,socket
 import random,time
 import gzip,zlib,cPickle
 import re,struct,array
@@ -16,10 +16,10 @@ import subprocess
 import warnings
 warnings.filterwarnings("ignore","tempnam",RuntimeWarning, __name__)
 
-from config import conf
-from data import MTU
-from error import log_runtime,log_loading,log_interactive
-from base_classes import BasePacketList
+from scapy.config import conf
+from scapy.data import MTU
+from scapy.error import log_runtime,log_loading,Scapy_Exception
+from scapy.base_classes import BasePacketList
 
 WINDOWS=sys.platform.startswith("win32")
 
@@ -266,7 +266,7 @@ try:
     inet_ntop = socket.inet_ntop
     inet_pton = socket.inet_pton
 except AttributeError:
-    from scapy.pton_ntop import *
+    from scapy.pton_ntop import inet_ntop, inet_pton
     log_loading.info("inet_ntop/pton functions not found. Python IPv6 support not present")
 
 
@@ -588,7 +588,7 @@ class PcapReader(RawPcapReader):
         return p
     def read_all(self,count=-1):
         res = RawPcapReader.read_all(self, count)
-        import plist
+        from scapy import plist
         return plist.PacketList(res,name = os.path.basename(self.filename))
     def recv(self, size=MTU):
         return self.read_packet(size)

@@ -7,8 +7,7 @@
 Common customizations for all Unix-like operating systems other than Linux
 """
 
-import sys,os,struct,socket,time
-from fcntl import ioctl
+import os
 from scapy.error import warning
 import scapy.config
 import scapy.utils
@@ -17,7 +16,7 @@ import scapy.arch
 
 scapy.config.conf.use_pcap = 1
 scapy.config.conf.use_dnet = 1
-from pcapdnet import *
+from scapy.arch.pcapdnet import dnet
 
 
     

@@ -8,8 +8,9 @@ NTP (Network Time Protocol).
 """
 
 import time
-from scapy.packet import *
-from scapy.fields import *
+
+from scapy.packet import Packet, bind_layers
+from scapy.fields import FixedPointField, BitEnumField, BitField, IPField
 from scapy.layers.inet import UDP
 
 

@@ -7,8 +7,9 @@
 Mobile IP.
 """
 
-from scapy.fields import *
-from scapy.packet import *
+from scapy.fields import ByteEnumField, XByteField, ShortField, IPField, \
+    LongField, ByteField
+from scapy.packet import Packet, bind_layers
 from scapy.layers.inet import IP,UDP
 
 

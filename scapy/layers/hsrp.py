@@ -7,8 +7,8 @@
 HSRP (Hot Standby Router Protocol): proprietary redundancy protocol for Cisco routers.
 """
 
-from scapy.fields import *
-from scapy.packet import *
+from scapy.fields import ByteField, ByteEnumField, StrFixedLenField, IPField
+from scapy.packet import Packet, bind_layers
 from scapy.layers.inet import UDP
 
 class HSRP(Packet):

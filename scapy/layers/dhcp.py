@@ -8,17 +8,20 @@ DHCP (Dynamic Host Configuration Protocol) d BOOTP
 """
 
 import struct
+import random
 
-from scapy.packet import *
-from scapy.fields import *
-from scapy.ansmachine import *
+from scapy.base_classes import Gen
+from scapy.packet import Packet, bind_layers, bind_bottom_up
+from scapy.fields import ByteEnumField, ByteField, IntField, IPField, FlagsField, ByteEnumField, ShortField, Field, StrField
+from scapy.ansmachine import AnsweringMachine
 from scapy.layers.inet import UDP,IP
 from scapy.layers.l2 import Ether
 from scapy.base_classes import Net
-from scapy.volatile import RandField
-
+from scapy.volatile import RandField, RandNumExpo, RandBin, RandNum
+from scapy.utils import sane, itom, ltoa, atol, ltoa
+from scapy.error import warning
 from scapy.arch import get_if_raw_hwaddr
-from scapy.sendrecv import srp1
+from scapy.sendrecv import srp1, sendp
 
 dhcpmagic="c\x82Sc"
 
@@ -284,6 +287,7 @@ bind_bottom_up( UDP, BOOTP, dport=67, sport=67)
 bind_layers( BOOTP,         DHCP,          options='c\x82Sc')
 
 def dhcp_request(iface=None,**kargs):
+    from scapy.config import conf
     if conf.checkIPaddr != 0:
         warning("conf.checkIPaddr is not 0, I may not be able to match the answer")
     if iface is None:

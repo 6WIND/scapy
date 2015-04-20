@@ -7,7 +7,7 @@
 Cryptographic certificates.
 """
 
-import os, sys, math, socket, struct, sha, hmac, string, time
+import os, math, struct, sha, time
 import random, popen2, tempfile
 from scapy.utils import strxor
 try:
@@ -16,9 +16,8 @@ try:
 except:
     HAS_HASHLIB=False
 
-from Crypto.PublicKey import *
-from Crypto.Cipher import *
-from Crypto.Hash import *
+from Crypto.PublicKey import RSA
+from Crypto.Hash import MD2, MD4, MD5, SHA
 
 # Maximum allowed size in bytes for a certificate file, to avoid
 # loading huge file when importing a cert

@@ -11,11 +11,24 @@ DHCPv6: Dynamic Host Configuration Protocol for IPv6. [RFC 3315]
 """
 
 import socket
-from scapy.packet import *
-from scapy.fields import *
-from scapy.utils6 import *
-from scapy.layers.inet6 import *
+import struct
+import time
+
+from scapy.themes import Color
+from scapy.arch import in6_getifaddr, get_if_raw_hwaddr
+from scapy.packet import Packet, Raw, Padding, bind_bottom_up
+from scapy.data import ETHER_ANY
+from scapy.fields import IntField, MACField, ShortEnumField, XShortEnumField, \
+    IntEnumField, FieldLenField, ShortField, ByteEnumField, PacketListField, \
+    StrLenField, XIntField, ByteField, BitField, FlagsField, X3BytesField, \
+    StrField, PacketField, StrFixedLenField
+from scapy.utils6 import in6_islladdr, in6_addrtovendor
+from scapy.layers.inet import UDP
+from scapy.layers.inet6 import IP6Field, IPv6, IP6ListField
 from scapy.ansmachine import AnsweringMachine
+from scapy.error import warning
+from scapy.utils import inet_pton
+from scapy.sendrecv import send
 
 #############################################################################
 # Helpers                                                                  ##
@@ -1289,6 +1302,7 @@ dhcp6d( dns="2001:500::1035", domain="localdomain, local", duid=None)
                 return -1
 
         if iface is None:
+            from scapy.config import conf
             iface = conf.iface6
         
         self.debug = debug

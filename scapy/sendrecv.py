@@ -9,14 +9,14 @@ Functions to send and receive packets.
 
 import cPickle,os,sys,time,subprocess
 from select import select
-from data import *
-import arch
-from config import conf
-from packet import Gen
-from utils import warning,get_temp_file,PcapReader
-import plist
-from error import log_runtime,log_interactive
-from base_classes import SetGen
+
+from scapy import arch, plist
+from scapy.data import MTU, ETH_P_ALL
+from scapy.config import conf
+from scapy.packet import Raw
+from scapy.utils import warning, get_temp_file, PcapReader, wrpcap
+from scapy.error import log_runtime,log_interactive
+from scapy.base_classes import SetGen, Gen
 
 #################
 ## Debug class ##

@@ -7,8 +7,13 @@
 X.509 certificates.
 """
 
-from scapy.asn1packet import *
-from scapy.asn1fields import *
+from scapy.asn1.asn1 import ASN1_Class_UNIVERSAL, ASN1_SEQUENCE, ASN1_Codecs, ASN1_NULL
+from scapy.asn1.ber import BERcodec_SEQUENCE
+from scapy.asn1packet import ASN1_Packet
+from scapy.asn1fields import ASN1F_BIT_STRING, ASN1F_field, ASN1F_INTEGER, \
+    ASN1F_OID, ASN1F_optionnal, ASN1F_PRINTABLE_STRING, ASN1F_SEQUENCE, \
+    ASN1F_SEQUENCE_OF, ASN1F_SET, ASN1F_UTC_TIME
+from scapy.volatile import ZuluTime
 
 ##########
 ## X509 ##

@@ -8,11 +8,11 @@ TFTP (Trivial File Transfer Protocol).
 """
 
 import os,random
-from scapy.packet import *
-from scapy.fields import *
-from scapy.automaton import *
-from scapy.layers.inet import UDP
-
+from scapy.packet import Packet, split_bottom_up, Raw, bind_layers, bind_bottom_up
+from scapy.fields import ShortEnumField, StrNullField, ShortField, PacketListField
+from scapy.automaton import ATMT, Automaton
+from scapy.layers.inet import UDP, IP
+from scapy.volatile import RandShort
 
 
 TFTP_operations = { 1:"RRQ",2:"WRQ",3:"DATA",4:"ACK",5:"ERROR",6:"OACK" }

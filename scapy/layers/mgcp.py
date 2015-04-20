@@ -9,8 +9,8 @@ MGCP (Media Gateway Control Protocol)
 [RFC 2805]
 """
 
-from scapy.packet import *
-from scapy.fields import *
+from scapy.packet import Packet, bind_layers
+from scapy.fields import StrStopField, StrFixedLenField
 from scapy.layers.inet import UDP
 
 class MGCP(Packet):

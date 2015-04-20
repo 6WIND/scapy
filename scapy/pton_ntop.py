@@ -11,6 +11,7 @@ without IPv6 support, on Windows for instance.
 """
 
 import socket,struct
+from socket import inet_ntoa, inet_aton
 
 def inet_pton(af, addr):
     """Convert an IP address from text representation into binary form"""

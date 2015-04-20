@@ -7,6 +7,16 @@
 Support for BSD-like operating systems such as FreeBSD, OpenBSD and Mac OS X.
 """
 
-LOOPBACK_NAME="lo0"
+from scapy.arch.unix import (
+    in6_getifaddr,
+    read_routes,
+    read_routes6,
+)
 
-from unix import *
+__all__ = (
+    'in6_getifaddr',
+    'read_routes',
+    'read_routes6',
+)
+
+LOOPBACK_NAME="lo0"

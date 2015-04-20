@@ -1,5 +1,7 @@
-from scapy.fields import *
-from scapy.packet import *
+import struct
+
+from scapy.fields import BitEnumField, BitField, ShortField
+from scapy.packet import Packet, bind_bottom_up, Raw
 from scapy.layers.inet import UDP
 from scapy.layers.dns import DNSQRField, DNSRRField, DNSRRCountField
 

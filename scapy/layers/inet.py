@@ -8,20 +8,31 @@ IPv4 (Internet Protocol v4).
 """
 
 import os,time,struct,re,socket,new
+import random
 from select import select
 from collections import defaultdict
-from scapy.utils import checksum
-from scapy.layers.l2 import *
+
+from scapy.base_classes import Gen, Net
+from scapy.data import TCP_SERVICES, UDP_SERVICES, ETH_P_IP, ETH_P_ALL, IP_PROTOS
+from scapy.utils import checksum, strxor, colgen, do_graph, linehexdump, \
+    inet_aton, incremental_label
+from scapy.layers.l2 import Ether, getmacbyip, CookedLinux, Dot3, GRE, SNAP
 from scapy.config import conf
-from scapy.fields import *
-from scapy.packet import *
-from scapy.volatile import *
-from scapy.sendrecv import sr,sr1,srp1
+from scapy.fields import BitEnumField, BitField, ByteEnumField, ByteField, \
+    ConditionalField, FieldLenField, FieldListField, FlagsField, IPField, \
+    MultiEnumField, PacketListField, ShortEnumField, ShortField, SourceIPField, \
+    StrField, StrFixedLenField, StrLenField, X3BytesField, XByteField, \
+    XShortField, IntField, Emph
+from scapy.packet import Packet, bind_layers, Padding, Raw, NoPayload
+from scapy.volatile import RandInt, RandShort
+from scapy.sendrecv import sr,sr1
 from scapy.plist import PacketList,SndRcvList
 from scapy.automaton import Automaton,ATMT
-
+from scapy.error import warning, log_runtime
 import scapy.as_resolvers
-
+from scapy.arch import GNUPLOT
+if GNUPLOT:
+     import Gnuplot
 
 ####################
 ## IP Tools class ##
@@ -1069,7 +1080,7 @@ class TracerouteResult(SndRcvList):
                 
                 
     def world_trace(self):
-        from modules.geo import locate_ip
+        from scapy.modules.geoip import locate_ip
         ips = {}
         rt = {}
         ports_done = {}
@@ -1134,6 +1145,7 @@ class TracerouteResult(SndRcvList):
                 trace_id = (s.src,s.dst,s.proto,0)
             trace = rt.get(trace_id,{})
             ttl = conf.ipv6_enabled and scapy.layers.inet6.IPv6 in s and s.hlim or s.ttl
+            from scapy.layers.inet6 import ICMPv6TimeExceeded
             if not (ICMP in r and r[ICMP].type == 11) and not (conf.ipv6_enabled and scapy.layers.inet6.IPv6 in r and ICMPv6TimeExceeded in r):
                 if trace_id in ports_done:
                     continue

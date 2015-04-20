@@ -7,10 +7,11 @@
 Classes that implement ASN.1 data structures.
 """
 
-from asn1.asn1 import *
-from asn1.ber import *
-from volatile import *
-from base_classes import BasePacket
+from scapy.asn1.asn1 import ASN1_Class_UNIVERSAL, ASN1_Object, ASN1_Error
+from scapy.asn1.ber import BER_Decoding_Error
+from scapy.volatile import RandInt, RandNum, RandChoice, RandString, RandOID
+from scapy.base_classes import BasePacket
+from scapy.error import warning
 
 
 #####################
@@ -327,4 +328,5 @@ class ASN1F_CHOICE(ASN1F_PACKET):
             
     
 # This import must come in last to avoid problems with cyclic dependencies
-import packet
+from scapy import packet
+from scapy.packet import fuzz

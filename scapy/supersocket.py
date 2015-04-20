@@ -8,9 +8,10 @@ SuperSocket.
 """
 
 import socket,time
-from config import conf
-from data import *
-from scapy.error import warning
+from scapy.packet import Padding, NoPayload
+from scapy.config import conf
+from scapy.data import MTU, ETH_P_IP
+from scapy.error import warning, log_runtime
 
 class _SuperSocket_metaclass(type):
     def __repr__(self):
@@ -46,14 +47,17 @@ class SuperSocket:
         if self.ins and self.ins.fileno() != -1:
             self.ins.close()
     def sr(self, *args, **kargs):
+        from scapy import sendrecv
         return sendrecv.sndrcv(self, *args, **kargs)
     def sr1(self, *args, **kargs):        
+        from scapy import sendrecv
         a,b = sendrecv.sndrcv(self, *args, **kargs)
         if len(a) > 0:
             return a[0][1]
         else:
             return None
     def sniff(self, *args, **kargs):
+        from scapy import sendrecv
         return sendrecv.sniff(opened_socket=self, *args, **kargs)
 
 class L3RawSocket(SuperSocket):
@@ -91,7 +95,7 @@ class L3RawSocket(SuperSocket):
             pkt = pkt.payload
             
         if pkt is not None:
-            from arch import get_last_packet_timestamp
+            from scapy.arch import get_last_packet_timestamp
             pkt.time = get_last_packet_timestamp(self.ins)
         return pkt
     def send(self, x):
@@ -136,5 +140,3 @@ class StreamSocket(SimpleSocket):
 
 if conf.L3socket is None:
     conf.L3socket = L3RawSocket
-
-import sendrecv

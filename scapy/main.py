@@ -8,11 +8,14 @@ Main module for interactive startup.
 """
 
 from __future__ import generators
-import os,sys
+import os,sys,types,gzip,cPickle
 import glob
+import logging
 import __builtin__
-from error import *
-import utils
+
+from scapy.error import log_loading, log_interactive, warning, log_scapy
+from scapy.packet import Packet, Packet_metaclass
+from scapy import utils
     
 
 def _probe_config_file(cf):
@@ -44,8 +47,8 @@ def _usage():
     sys.exit(0)
 
 
-from config import conf
-from themes import DefaultTheme
+from scapy.config import conf
+from scapy.themes import DefaultTheme
 
 
 ######################
@@ -178,8 +181,7 @@ def scapy_write_history_file(readline):
 
 def interact(mydict=None,argv=None,mybanner=None,loglevel=20):
     global session
-    import code,sys,cPickle,os,getopt,re
-    from config import conf
+    import code,getopt,re
     conf.interactive = True
     if loglevel is not None:
         conf.logLevel=loglevel

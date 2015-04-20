@@ -7,10 +7,11 @@
 Sebek: Linux kernel module for data collection on honeypots.
 """
 
-from scapy.fields import *
-from scapy.packet import *
+from scapy.fields import XIntField, ByteEnumField, FieldLenField, IntField, \
+    IPField, ShortEnumField, ShortField, StrFixedLenField, StrLenField 
+from scapy.packet import Packet, bind_layers
 from scapy.layers.inet import UDP
-
+from scapy.data import IP_PROTOS
 
 ### SEBEK
 

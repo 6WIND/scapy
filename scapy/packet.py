@@ -7,14 +7,16 @@
 Packet class. Binding mechanism. fuzz() method.
 """
 
-import time,itertools,os
+import time,itertools
 import copy
-from fields import StrField,ConditionalField,Emph,PacketListField
-from config import conf
-from base_classes import BasePacket,Gen,SetGen,Packet_metaclass,NewDefaultValues
-from volatile import VolatileValue
-from utils import import_hexcap,tex_escape,colgen,get_temp_file
-from error import Scapy_Exception,log_runtime
+import subprocess
+
+from scapy.fields import StrField,ConditionalField,Emph,PacketListField
+from scapy.config import conf
+from scapy.base_classes import BasePacket,Gen,SetGen,Packet_metaclass
+from scapy.volatile import VolatileValue
+from scapy.utils import import_hexcap,tex_escape,colgen,get_temp_file
+from scapy.error import Scapy_Exception,log_runtime
 
 try:
     import pyx

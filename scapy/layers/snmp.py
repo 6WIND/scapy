@@ -7,9 +7,16 @@
 SNMP (Simple Network Management Protocol).
 """
 
-from scapy.asn1packet import *
-from scapy.asn1fields import *
-from scapy.layers.inet import UDP
+from scapy.packet import bind_layers
+from scapy.asn1packet import ASN1_Packet
+from scapy.asn1fields import ASN1F_SEQUENCE, ASN1F_OID, ASN1F_field, \
+    ASN1F_INTEGER, ASN1F_enum_INTEGER, ASN1F_SEQUENCE_OF, ASN1F_TIME_TICKS, \
+    ASN1F_STRING, ASN1F_CHOICE, ASN1F_IPADDRESS
+from scapy.asn1.asn1 import ASN1_SEQUENCE, ASN1_Codecs, ASN1_NULL, ASN1_Class_UNIVERSAL
+from scapy.asn1.ber import BERcodec_SEQUENCE
+from scapy.layers.inet import UDP, IP, ICMP
+from scapy.volatile import RandShort, IntAutoTime
+from scapy.sendrecv import sr1
 
 ##########
 ## SNMP ##

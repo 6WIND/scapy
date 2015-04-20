@@ -8,8 +8,9 @@ RADIUS (Remote Authentication Dial In User Service)
 """
 
 import struct
-from scapy.packet import *
-from scapy.fields import *
+
+from scapy.packet import Packet
+from scapy.fields import ByteEnumField, ByteField, ShortField, StrFixedLenField
 
 class Radius(Packet):
     name = "Radius"

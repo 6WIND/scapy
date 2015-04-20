@@ -12,6 +12,10 @@ import os
 from scapy.data import KnowledgeBase
 from scapy.config import conf
 from scapy.arch import WINDOWS
+from scapy.error import warning
+from scapy.packet import Raw
+from scapy.layers.inet import IP, TCP, UDP, ICMP, IPerror, UDPerror
+from scapy.sendrecv import sr
 
 
 if WINDOWS:

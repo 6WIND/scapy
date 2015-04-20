@@ -9,14 +9,14 @@ PacketList: holds several packets and allows to do operations on them.
 
 
 import os,subprocess
-from config import conf
-from base_classes import BasePacket,BasePacketList
-from packet import Padding
 from collections import defaultdict
 
-from utils import do_graph,hexdump,make_table,make_lined_table,make_tex_table,get_temp_file
+from scapy.config import conf
+from scapy.base_classes import BasePacket,BasePacketList
+from scapy.packet import Padding
+from scapy.utils import do_graph,hexdump,make_table,make_lined_table,make_tex_table,get_temp_file
 
-import arch
+from scapy import arch
 if arch.GNUPLOT:
     Gnuplot=arch.Gnuplot
 

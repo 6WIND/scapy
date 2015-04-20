@@ -10,10 +10,14 @@ PPP (Point to Point Protocol)
 """
 
 import struct
-from scapy.packet import *
-from scapy.layers.l2 import *
-from scapy.layers.inet import *
-from scapy.fields import *
+
+from scapy.packet import Packet, bind_layers
+from scapy.layers.l2 import Ether, CookedLinux
+from scapy.layers.inet import IP
+from scapy.fields import BitField, ByteEnumField, ByteField, ConditionalField, \
+    FieldLenField, IPField, PacketListField, ShortEnumField, ShortField, \
+    StrFixedLenField, StrLenField, XByteField, XShortField
+
 
 class PPPoE(Packet):
     name = "PPP over Ethernet"

@@ -10,9 +10,17 @@
 Utility functions for IPv6.
 """
 
-from config import conf
-from data import *
-from utils import *
+import socket
+import struct
+import time
+import random
+
+from scapy.config import conf
+from scapy.error import Scapy_Exception, warning
+from scapy.data import IPV6_ADDR_6TO4, IPV6_ADDR_GLOBAL, IPV6_ADDR_LINKLOCAL, \
+        IPV6_ADDR_LOOPBACK, IPV6_ADDR_MULTICAST, IPV6_ADDR_SCOPE_MASK, \
+        IPV6_ADDR_SITELOCAL, IPV6_ADDR_UNICAST, IPV6_ADDR_UNSPECIFIED
+from scapy.utils import strxor, inet_ntop, inet_pton
 
 
 def construct_source_candidate_set(addr, plen, laddr, loname):
@@ -390,6 +398,7 @@ def in6_getLocalUniquePrefix():
     j = int((tod - i)*(2**32))
     tod = struct.pack("!II", i,j)
     # TODO: Add some check regarding system address gathering
+    from scapy.arch import get_if_raw_hwaddr
     rawmac = get_if_raw_hwaddr(conf.iface6)[1]
     mac = ":".join(map(lambda x: "%.02x" % ord(x), list(rawmac)))
     # construct modified EUI-64 ID

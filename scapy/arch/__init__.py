@@ -9,8 +9,11 @@ Operating system specific functionality.
 
 
 import sys,os,socket
-from scapy.error import *
+
 import scapy.config
+from scapy.error import log_loading, Scapy_Exception
+from scapy.utils import str2mac, inet_pton
+from scapy.data import ARPHDR_ETHER, ARPHDR_LOOPBACK, IPV6_ADDR_GLOBAL
 
 try:
     import Gnuplot
@@ -26,12 +29,6 @@ except ImportError:
     log_loading.info("Can't import PyX. Won't be able to use psdump() or pdfdump().")
     PYX=0
 
-
-def str2mac(s):
-    return ("%02x:"*6)[:-1] % tuple(map(ord, s)) 
-
-
-    
 def get_if_addr(iff):
     return socket.inet_ntoa(get_if_raw_addr(iff))
     
@@ -42,17 +39,15 @@ def get_if_hwaddr(iff):
     else:
         raise Scapy_Exception("Unsupported address family (%i) for interface [%s]" % (addrfamily,iff))
 
-
-LINUX=sys.platform.startswith("linux")
-OPENBSD=sys.platform.startswith("openbsd")
-FREEBSD=sys.platform.startswith("freebsd")
+LINUX = sys.platform.startswith("linux")
+OPENBSD = sys.platform.startswith("openbsd")
+FREEBSD = sys.platform.startswith("freebsd")
 NETBSD = sys.platform.startswith("netbsd")
-DARWIN=sys.platform.startswith("darwin")
-SOLARIS=sys.platform.startswith("sunos")
-WINDOWS=sys.platform.startswith("win32")
+DARWIN = sys.platform.startswith("darwin")
+SOLARIS = sys.platform.startswith("sunos")
+WINDOWS = sys.platform.startswith("win32")
 
 X86_64 = not WINDOWS and (os.uname()[4] == 'x86_64')
-
 
 # Next step is to import following architecture specific functions:
 # def get_if_raw_hwaddr(iff)
@@ -65,18 +60,46 @@ X86_64 = not WINDOWS and (os.uname()[4] == 'x86_64')
 # def get_if(iff,cmd):
 # def get_if_index(iff):
 
-
-
 if LINUX:
-    from linux import *
-    if scapy.config.conf.use_pcap or scapy.config.conf.use_dnet:
-        from pcapdnet import *
+    from scapy.arch.linux import (
+        LOOPBACK_NAME,
+        attach_filter,
+        get_if,
+        get_if_index,
+        get_if_list,
+        get_if_raw_addr,
+        get_if_raw_hwaddr,
+        get_working_if,
+        in6_getifaddr,
+        read_routes,
+        read_routes6,
+        set_promisc,
+        get_last_packet_timestamp,
+    )
+#    if scapy.config.conf.use_pcap or scapy.config.conf.use_dnet:
+#        from pcapdnet import *
 elif OPENBSD or FREEBSD or NETBSD or DARWIN:
-    from bsd import *
+    from scapy.arch.bsd import (
+        LOOPBACK_NAME,
+        in6_getifaddr,
+        read_routes,
+        read_routes6,
+    )
 elif SOLARIS:
-    from solaris import *
+    from scapy.arch.solaris import (
+        LOOPBACK_NAME,
+        in6_getifaddr,
+        read_routes,
+        read_routes6,
+    )
 elif WINDOWS:
-    from windows import *
+    from scapy.arch.windows import (
+        LOOPBACK_NAME,
+        get_if_list,
+        get_working_if,
+        read_routes,
+        read_routes6,
+    )
 
 if scapy.config.conf.iface is None:
     scapy.config.conf.iface = LOOPBACK_NAME

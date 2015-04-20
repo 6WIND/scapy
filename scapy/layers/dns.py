@@ -9,10 +9,15 @@ DNS: Domain Name System.
 
 import socket,struct
 
-from scapy.packet import *
-from scapy.fields import *
-from scapy.ansmachine import *
-from scapy.layers.inet import UDP
+from scapy.packet import Packet, bind_layers
+from scapy.fields import ShortField, StrField, Field, BitField, BitEnumField, \
+        ShortEnumField, StrLenField, IntField
+from scapy.ansmachine import AnsweringMachine
+from scapy.layers.inet import UDP, IP
+from scapy.error import Scapy_Exception, warning
+from scapy.utils import inet_ntop, inet_pton, inet_aton
+from scapy.sendrecv import sr1
+from scapy.config import conf
 
 class DNSStrField(StrField):
 

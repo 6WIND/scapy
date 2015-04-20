@@ -9,7 +9,7 @@ import struct
 import re
 from socket import inet_aton, inet_ntoa
 
-from scapy.packet import Packet, Raw, bind_layers
+from scapy.packet import Packet, bind_layers
 from scapy.fields import (
     Field, XBitField, ShortField, ByteEnumField, ByteField, StrLenField,
     IPField, PacketListField, FieldListField, LongField, FieldLenField,

@@ -8,16 +8,23 @@ Classes and functions for layer 2 protocols.
 """
 
 import os,struct,time
-from scapy.base_classes import Net
+
+from scapy.base_classes import Net, Gen
 from scapy.config import conf
-from scapy.packet import *
-from scapy.ansmachine import *
+from scapy.packet import Packet, bind_layers, Raw, Padding
+from scapy.fields import BCDFloatField, BitField, ByteEnumField, ByteField, \
+    ConditionalField, FieldLenField, IntField, IPField, LenField, \
+    ShortEnumField, ShortField, SourceIPField, StrFixedLenField, StrLenField, \
+    X3BytesField, XByteField, XIntField, XShortEnumField, XShortField
 from scapy.plist import SndRcvList
-from scapy.fields import *
-from scapy.sendrecv import srp,srp1
+from scapy.fields import MACField
+from scapy.ansmachine import AnsweringMachine
+from scapy.sendrecv import srp, srp1, sniff, sendp, srpflood
 from scapy.arch import get_if_hwaddr
-
-
+from scapy.data import ETHER_BROADCAST, ETHER_TYPES, ETHER_ANY, ARPHDR_ETHER, \
+    ARPHDR_METRICOM, ARPHDR_LOOPBACK, ARPHDR_ETHER, ETH_P_ARP
+from scapy.utils import checksum, inet_aton, hexstr
+from scapy.error import warning
 
 
 #################

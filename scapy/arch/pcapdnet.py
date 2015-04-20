@@ -10,11 +10,11 @@ Packet sending and receiving with libdnet and libpcap/WinPcap.
 import time,struct,sys
 if not sys.platform.startswith("win"):
     from fcntl import ioctl
-from scapy.data import *
+from scapy.data import ETH_P_ALL, MTU
 from scapy.config import conf
 from scapy.utils import warning
 from scapy.supersocket import SuperSocket
-from scapy.error import Scapy_Exception
+from scapy.error import Scapy_Exception, log_loading
 import scapy.arch
 
 

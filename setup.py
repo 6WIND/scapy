@@ -46,7 +46,7 @@ if os.name == "nt":
 
 setup(
     name = 'scapy',
-    version = '2.2.0.6WIND.1',
+    version = '2.2.0.6WIND.2',
     packages=['scapy','scapy/arch', 'scapy/contrib', 'scapy/layers',
               'scapy/asn1','scapy/tools','scapy/modules', 'scapy/crypto'],
     scripts = SCRIPTS,

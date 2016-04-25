@@ -13,8 +13,8 @@ class VXLAN(Packet):
     name = 'VXLAN'
 
     fields_desc = [
-        FlagsField('flags', default=1 << 3, size=8,
-                   names=['R', 'R', 'R', 'R', 'I', 'R', 'R', 'R']),
+        FlagsField('flags', default=0x8, size=8,
+                   names=['R', 'R', 'R', 'I', 'R', 'R', 'R', 'R']),
         XBitField('reserved1', default=0x000000, size=24),
         BitField('vni', None, size=24),
         XBitField('reserved2', default=0x00, size=8),
